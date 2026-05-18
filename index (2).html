@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guia Interativo da Hipertensão Arterial</title>
+  <meta name="description" content="Guia educativo, acessível e interativo sobre hipertensão arterial, atualizado com base na Diretriz Brasileira de Hipertensão Arterial 2025 e no PCDT HAS 2025 do SUS." />
+  <style>
+    :root{
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --text:#172033;
+      --muted:#566579;
+      --primary:#10a37f;
+      --primary-dark:#0e7c61;
+      --soft:#e9f7f3;
+      --soft-blue:#eaf2ff;
+      --soft-red:#fff0f0;
+      --danger:#b42318;
+      --ok:#127a3d;
+      --border:#d8dee8;
+      --shadow:0 10px 28px rgba(16,24,40,.08);
+      --radius:26px;
+      --font:20px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#eefaf6 0%, var(--bg) 42%, #fff 100%);
+      color:var(--text);
+      font-family:Inter, Arial, Helvetica, sans-serif;
+      font-size:var(--font);
+      line-height:1.55;
+    }
+
+    body.high-contrast{
+      --bg:#000;
+      --card:#101010;
+      --text:#fff;
+      --muted:#f3f4f6;
+      --primary:#ffe600;
+      --primary-dark:#ffe600;
+      --soft:#111;
+      --soft-blue:#111;
+      --soft-red:#111;
+      --border:#fff;
+      background:#000;
+    }
+
+    .wrap{max-width:980px;margin:0 auto;padding:18px}
+    .skip{position:absolute;left:-999px}
+    .skip:focus{left:14px;top:14px;background:#fff;color:#000;padding:12px;border:3px solid #000;z-index:9999}
+
+    header{
+      background:linear-gradient(135deg,#10a37f,#0f766e);
+      color:white;
+      border-bottom-left-radius:34px;
+      border-bottom-right-radius:34px;
+      box-shadow:var(--shadow);
+    }
+    .hero{
+      max-width:980px;
+      margin:0 auto;
+      padding:34px 18px 30px;
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:18px;
+      align-items:center;
+    }
+    .tag{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      border:1px solid rgba(255,255,255,.38);
+      background:rgba(255,255,255,.16);
+      border-radius:999px;
+      padding:8px 13px;
+      font-weight:800;
+      font-size:.95rem;
+    }
+    h1{font-size:clamp(2rem,5vw,3.6rem);line-height:1.05;margin:14px 0}
+    .subtitle{font-size:1.2rem;margin:0 0 18px;max-width:720px}
+    .hero-card{
+      background:rgba(255,255,255,.16);
+      border:1px solid rgba(255,255,255,.35);
+      border-radius:30px;
+      padding:22px;
+      text-align:center;
+    }
+    .hero-icon{font-size:84px;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+
+    .toolbar{
+      position:sticky;
+      top:0;
+      z-index:40;
+      background:rgba(246,248,251,.94);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+    body.high-contrast .toolbar{background:#000}
+    .toolrow{
+      max-width:980px;
+      margin:0 auto;
+      padding:10px 18px;
+      display:flex;
+      gap:10px;
+      overflow-x:auto;
+    }
+    button,.btn{
+      border:0;
+      border-radius:16px;
+      padding:13px 16px;
+      font-size:1rem;
+      font-weight:850;
+      cursor:pointer;
+      background:var(--primary);
+      color:white;
+      text-decoration:none;
+      white-space:nowrap;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      box-shadow:0 4px 12px rgba(16,24,40,.10);
+    }
+    body.high-contrast button,body.high-contrast .btn{color:#000}
+    button.secondary,.btn.secondary{background:#eef2f7;color:#172033}
+    button.danger{background:var(--danger);color:white}
+    button:focus,.btn:focus,.option:focus,.quick a:focus,input:focus{outline:4px solid #facc15;outline-offset:3px}
+
+    .quick{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+      margin:18px 0;
+    }
+    .quick a{
+      background:var(--card);
+      border:2px solid var(--border);
+      border-radius:22px;
+      padding:16px 12px;
+      min-height:110px;
+      text-decoration:none;
+      color:var(--text);
+      box-shadow:var(--shadow);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      font-weight:900;
+    }
+    .quick span{font-size:2.1rem;margin-bottom:6px}
+
+    section{
+      background:var(--card);
+      border:2px solid var(--border);
+      border-radius:var(--radius);
+      padding:24px;
+      margin:18px 0;
+      box-shadow:var(--shadow);
+    }
+    h2{font-size:clamp(1.55rem,4vw,2.25rem);line-height:1.18;margin:0 0 12px;color:var(--primary-dark)}
+    body.high-contrast h2{color:#ffe600}
+    h3{font-size:1.25rem;margin:16px 0 8px}
+    p{margin:10px 0}
+    .lead{font-size:1.13rem;color:var(--muted)}
+    .mini{font-size:.92rem;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .card{
+      background:#fbfcfe;
+      border:2px solid var(--border);
+      border-radius:22px;
+      padding:17px;
+    }
+    body.high-contrast .card{background:#111}
+    .icon{font-size:2.2rem;display:block;margin-bottom:6px}
+    .big{font-size:1.18rem;font-weight:900}
+
+    .note,.warn,.good{
+      border-radius:20px;
+      padding:16px;
+      margin:14px 0;
+      border:2px solid var(--border);
+      font-weight:750;
+    }
+    .note{background:var(--soft-blue);border-left:10px solid #2563eb}
+    .warn{background:var(--soft-red);border-left:10px solid var(--danger)}
+    .good{background:var(--soft);border-left:10px solid var(--ok)}
+
+    table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border:2px solid var(--border);border-radius:20px;font-size:1rem}
+    th,td{padding:14px;border-bottom:2px solid var(--border);text-align:left;vertical-align:top}
+    tr:last-child td{border-bottom:0}
+    th{background:var(--soft);font-weight:900}
+    body.high-contrast th{background:#222}
+
+    details{
+      background:#fbfcfe;
+      border:2px solid var(--border);
+      border-radius:22px;
+      margin:12px 0;
+      overflow:hidden;
+    }
+    body.high-contrast details{background:#111}
+    summary{
+      list-style:none;
+      padding:17px 18px;
+      cursor:pointer;
+      font-size:1.1rem;
+      font-weight:900;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    summary::-webkit-details-marker{display:none}
+    summary::after{content:"＋";margin-left:auto;font-size:1.4rem}
+    details[open] summary::after{content:"−"}
+    .inside{padding:0 18px 18px}
+
+    .options{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+      margin-top:12px;
+    }
+    .option{
+      background:#fbfcfe;
+      border:2px solid var(--border);
+      border-radius:22px;
+      padding:16px;
+      min-height:92px;
+      cursor:pointer;
+      text-align:left;
+      font-size:1rem;
+      font-weight:850;
+      color:var(--text);
+      box-shadow:none;
+      justify-content:flex-start;
+      white-space:normal;
+    }
+    body.high-contrast .option{background:#111;color:#fff}
+    .option.done{
+      border-color:var(--primary);
+      background:var(--soft);
+    }
+    .option.done::before{content:"✅ ";font-size:1.2rem}
+    .option::before{content:"⬜ ";font-size:1.2rem}
+
+    .result{
+      display:none;
+      margin-top:12px;
+      padding:15px;
+      border-radius:18px;
+      border:2px solid var(--border);
+      background:#f8fafc;
+      font-weight:850;
+    }
+    body.high-contrast .result{background:#111}
+
+    .pressure-form{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+    label{font-weight:800}
+    input{
+      width:100%;
+      border:2px solid var(--border);
+      border-radius:16px;
+      padding:13px;
+      font-size:1rem;
+      margin-top:4px;
+      color:#172033;
+    }
+    .list-item{
+      background:#fbfcfe;
+      border:2px solid var(--border);
+      border-radius:18px;
+      padding:12px;
+      margin:8px 0;
+    }
+    body.high-contrast .list-item{background:#111}
+
+    .footer{
+      background:#172033;
+      color:#fff;
+      border-radius:26px;
+      padding:22px;
+      margin:24px 0 8px;
+    }
+    .footer h2{color:white}
+
+
+
+    .mode-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .mode-card{
+      background:#fbfcfe;
+      border:3px solid var(--border);
+      border-radius:28px;
+      padding:24px;
+      min-height:220px;
+      text-align:left;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:flex-start;
+      gap:10px;
+      transition:.2s ease;
+    }
+
+    .mode-card:hover{
+      transform:translateY(-2px);
+      border-color:var(--primary);
+    }
+
+    body.high-contrast .mode-card{
+      background:#111;
+    }
+
+    .mode-icon{
+      font-size:3.4rem;
+      line-height:1;
+    }
+
+    .mode-card strong{
+      font-size:1.5rem;
+    }
+
+    .mode-card small{
+      font-size:1rem;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    .quick-summary{
+      margin-top:22px;
+      border:3px solid var(--primary);
+      border-radius:28px;
+      background:var(--soft);
+      padding:22px;
+    }
+
+    .summary-title{
+      font-size:1.8rem;
+      font-weight:950;
+      text-align:center;
+      margin-bottom:20px;
+      color:var(--primary-dark);
+    }
+
+    body.high-contrast .summary-title{
+      color:#ffe600;
+    }
+
+    .quick-cards{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:14px;
+    }
+
+    .quick-card{
+      background:white;
+      border:2px solid var(--border);
+      border-radius:24px;
+      padding:18px;
+      min-height:170px;
+      box-shadow:0 6px 16px rgba(16,24,40,.06);
+    }
+
+    body.high-contrast .quick-card{
+      background:#111;
+    }
+
+    .quick-big{
+      font-size:1.35rem;
+      font-weight:950;
+      margin-bottom:10px;
+    }
+
+    .alert-mini{
+      background:#fff0f0;
+    }
+
+    .green-mini{
+      background:#ecfdf3;
+    }
+
+    body.high-contrast .alert-mini,
+    body.high-contrast .green-mini{
+      background:#111;
+    }
+
+    .final-message{
+      margin-top:22px;
+      background:white;
+      border:2px solid var(--border);
+      border-radius:22px;
+      padding:18px;
+      text-align:center;
+      font-size:1.3rem;
+      font-weight:950;
+    }
+
+    body.high-contrast .final-message{
+      background:#111;
+    }
+
+    .control-panel{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:14px;
+      margin-top:14px;
+    }
+    .control-card{
+      background:#fbfcfe;
+      border:2px solid var(--border);
+      border-radius:24px;
+      padding:18px;
+    }
+    body.high-contrast .control-card{background:#111}
+    .stepper{
+      display:grid;
+      grid-template-columns:auto auto 1fr auto auto;
+      gap:8px;
+      align-items:center;
+      margin-top:10px;
+    }
+    .round{
+      border-radius:999px;
+      min-width:54px;
+      min-height:54px;
+      padding:10px;
+      font-size:1.05rem;
+    }
+    .number-box{
+      border:3px solid var(--primary);
+      border-radius:22px;
+      background:var(--soft);
+      text-align:center;
+      padding:10px;
+      min-width:110px;
+    }
+    .number-box span{
+      display:block;
+      font-size:2.35rem;
+      line-height:1;
+      font-weight:950;
+      color:var(--primary-dark);
+    }
+    body.high-contrast .number-box span{color:#ffe600}
+    .number-box small{
+      display:block;
+      margin-top:4px;
+      font-weight:850;
+      color:var(--muted);
+    }
+    .classification-box{
+      margin:16px 0;
+      padding:18px;
+      border-radius:22px;
+      border:3px solid var(--primary);
+      background:var(--soft);
+      font-size:1.25rem;
+      font-weight:950;
+      text-align:center;
+    }
+    .preset-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin:12px 0;
+    }
+    select{
+      width:100%;
+      border:2px solid var(--border);
+      border-radius:16px;
+      padding:13px;
+      font-size:1rem;
+      margin-top:4px;
+      color:#172033;
+      background:white;
+    }
+    body.high-contrast select{
+      background:#000;
+      color:#fff;
+      border-color:#fff;
+    }
+    .pressure-form.better{
+      grid-template-columns:repeat(3,1fr);
+      margin-top:16px;
+    }
+    .summary-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin:18px 0;
+    }
+    .summary-card{
+      background:#fbfcfe;
+      border:2px solid var(--border);
+      border-radius:22px;
+      padding:16px;
+      min-height:145px;
+    }
+    body.high-contrast .summary-card{background:#111}
+    .summary-card strong{
+      display:block;
+      margin-bottom:8px;
+      font-size:1.05rem;
+    }
+    .filter-box{
+      background:#fbfcfe;
+      border:2px solid var(--border);
+      border-radius:24px;
+      padding:16px;
+      margin:16px 0;
+    }
+    body.high-contrast .filter-box{background:#111}
+    .history-list{
+      margin-top:14px;
+    }
+    .history-day{
+      margin:14px 0;
+      border:2px solid var(--border);
+      border-radius:22px;
+      overflow:hidden;
+      background:#fbfcfe;
+    }
+    body.high-contrast .history-day{background:#111}
+    .history-day-title{
+      background:var(--soft);
+      padding:13px 16px;
+      font-weight:950;
+      border-bottom:2px solid var(--border);
+    }
+    .history-measure{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:10px;
+      align-items:center;
+      padding:13px 16px;
+      border-bottom:1px solid var(--border);
+    }
+    .history-measure:last-child{border-bottom:0}
+    .measure-value{
+      font-size:1.25rem;
+      font-weight:950;
+    }
+    .badge-class{
+      display:inline-block;
+      border-radius:999px;
+      padding:6px 10px;
+      font-weight:900;
+      font-size:.86rem;
+      background:#eef2f7;
+      color:#172033;
+    }
+    .badge-ok{background:#dcfce7;color:#14532d}
+    .badge-att{background:#fef3c7;color:#92400e}
+    .badge-high{background:#fee2e2;color:#991b1b}
+    .delete-mini{
+      background:#eef2f7!important;
+      color:#172033!important;
+      box-shadow:none;
+      padding:8px 10px;
+      font-size:.86rem;
+      border-radius:12px;
+    }
+
+    @media(max-width:850px){
+      .hero{grid-template-columns:1fr}
+      .hero-card{display:none}
+      .grid,.grid2,.pressure-form,.control-panel,.summary-grid,.pressure-form.better,.mode-grid,.quick-cards{grid-template-columns:1fr}
+      .quick{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:560px){
+      body{font-size:18px}
+      section{padding:18px}
+      .quick{grid-template-columns:1fr 1fr}
+      .options{grid-template-columns:1fr}
+      .stepper{grid-template-columns:1fr 1fr 1.4fr 1fr 1fr}
+      .round{min-width:46px;min-height:48px}
+      .toolrow{padding-bottom:12px}
+    }
+    @media print{
+      .toolbar,.quick,.no-print{display:none!important}
+      body{background:white;color:black;font-size:14pt}
+      section{box-shadow:none;break-inside:avoid}
+    }
+  
+
+    /* =========================================================
+       CORREÇÃO FINAL DE RESPONSIVIDADE — GITHUB/CELULAR
+       Esta camada evita cortes laterais e reorganiza todos os
+       blocos para telas pequenas.
+    ========================================================= */
+    html, body{
+      width:100%;
+      max-width:100%;
+      overflow-x:hidden;
+    }
+
+    *, *::before, *::after{
+      min-width:0;
+    }
+
+    img, svg, video, canvas, iframe{
+      max-width:100%;
+      height:auto;
+    }
+
+    .wrap, .hero, .toolrow{
+      width:100%;
+      max-width:980px;
+    }
+
+    section, .card, .quick-card, .summary-card, .control-card, .mode-card, .history-day{
+      max-width:100%;
+      overflow-wrap:anywhere;
+      word-break:normal;
+    }
+
+    button, .btn{
+      max-width:100%;
+      white-space:normal;
+      line-height:1.25;
+      text-align:center;
+    }
+
+    .toolrow{
+      flex-wrap:nowrap;
+      overflow-x:auto;
+      -webkit-overflow-scrolling:touch;
+      scrollbar-width:thin;
+    }
+
+    .toolrow button{
+      flex:0 0 auto;
+      min-width:max-content;
+    }
+
+    table{
+      max-width:100%;
+    }
+
+    .table-scroll{
+      width:100%;
+      max-width:100%;
+      overflow-x:auto;
+      -webkit-overflow-scrolling:touch;
+      border-radius:20px;
+    }
+
+    .stepper{
+      width:100%;
+    }
+
+    .number-box{
+      max-width:100%;
+    }
+
+    .history-measure{
+      max-width:100%;
+    }
+
+    @media(max-width:760px){
+      body{
+        font-size:18px;
+      }
+
+      .wrap{
+        padding:12px;
+      }
+
+      .hero{
+        padding:26px 14px 24px;
+      }
+
+      h1{
+        font-size:2.2rem;
+      }
+
+      h2{
+        font-size:1.65rem;
+      }
+
+      .subtitle, .lead{
+        font-size:1.05rem;
+      }
+
+      section{
+        padding:16px;
+        margin:14px 0;
+        border-radius:22px;
+      }
+
+      .quick{
+        grid-template-columns:repeat(2, minmax(0,1fr));
+        gap:10px;
+      }
+
+      .quick a{
+        min-height:94px;
+        padding:12px 8px;
+        font-size:.95rem;
+      }
+
+      .quick span{
+        font-size:1.75rem;
+      }
+
+      .grid,
+      .grid2,
+      .mode-grid,
+      .quick-cards,
+      .control-panel,
+      .summary-grid,
+      .pressure-form,
+      .pressure-form.better{
+        grid-template-columns:1fr !important;
+      }
+
+      .mode-card{
+        min-height:auto;
+        padding:18px;
+      }
+
+      .mode-icon{
+        font-size:2.4rem;
+      }
+
+      .quick-summary{
+        padding:14px;
+        border-radius:22px;
+      }
+
+      .summary-title{
+        font-size:1.35rem;
+      }
+
+      .quick-card{
+        min-height:auto;
+        padding:15px;
+      }
+
+      .quick-big{
+        font-size:1.15rem;
+      }
+
+      .control-card{
+        padding:14px;
+      }
+
+      .stepper{
+        display:flex !important;
+        flex-wrap:wrap;
+        gap:8px;
+        align-items:stretch;
+      }
+
+      .stepper .number-box{
+        order:-1;
+        flex:1 0 100%;
+        width:100%;
+      }
+
+      .stepper .round{
+        flex:1 1 calc(50% - 8px);
+        min-width:0;
+        min-height:52px;
+        padding:10px;
+      }
+
+      .number-box span{
+        font-size:2.1rem;
+      }
+
+      .preset-row{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:8px;
+      }
+
+      .preset-row button{
+        width:100%;
+        min-width:0;
+        padding:12px 8px;
+      }
+
+      .classification-box{
+        font-size:1.05rem;
+        padding:14px;
+      }
+
+      .summary-card{
+        min-height:auto;
+      }
+
+      .history-measure{
+        grid-template-columns:1fr;
+      }
+
+      .delete-mini{
+        width:100%;
+        margin-top:8px;
+      }
+
+      th, td{
+        padding:11px;
+        font-size:.94rem;
+      }
+
+      .footer{
+        padding:16px;
+        border-radius:22px;
+      }
+    }
+
+    @media(max-width:380px){
+      body{
+        font-size:17px;
+      }
+
+      .wrap{
+        padding:10px;
+      }
+
+      h1{
+        font-size:1.9rem;
+      }
+
+      .quick{
+        grid-template-columns:1fr;
+      }
+
+      .preset-row{
+        grid-template-columns:1fr;
+      }
+
+      .toolrow button{
+        font-size:.92rem;
+        padding:11px 12px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+  <header>
+    <div class="hero">
+      <div>
+        <span class="tag">🩺 Atualizado com base 2025</span>
+        <h1>Pressão Alta: cuidado simples para o dia a dia</h1>
+        <p class="subtitle">Guia acessível sobre hipertensão arterial, feito para comunidade, pessoas idosas e famílias.</p>
+        <a href="#inicio" class="btn">Começar</a>
+      </div>
+      <div class="hero-card">
+        <div class="hero-icon">❤️</div>
+        <strong style="font-size:1.35rem">Medir, cuidar e acompanhar.</strong>
+        <p>Pressão controlada protege coração, cérebro e rins.</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="toolbar no-print">
+    <div class="toolrow">
+      <button onclick="changeFont(1)">A+ Letra</button>
+      <button class="secondary" onclick="changeFont(-1)">A- Letra</button>
+      <button class="secondary" onclick="toggleContrast()">Contraste</button>
+      <button onclick="startVoice()">🔊 Ouvir</button>
+      <button class="secondary" onclick="pauseResumeVoice()" id="pauseBtn">⏸️ Pausar</button>
+      <button class="danger" onclick="stopVoice()">⏹️ Parar</button>
+    </div>
+  </div>
+
+  <main id="conteudo" class="wrap">
+    <nav class="quick no-print">
+      <a href="#o-que-e"><span>🩺</span>O que é?</a>
+      <a href="#valores"><span>📊</span>Valores</a>
+      <a href="#cuidados"><span>🍎</span>Cuidados</a>
+      <a href="#alerta"><span>🚨</span>Alerta</a>
+      <a href="#medir"><span>📏</span>Medir certo</a>
+      <a href="#remedio"><span>💊</span>Remédios</a>
+      <a href="#mitos"><span>❌</span>Mitos</a>
+      <a href="#controle"><span>📝</span>Controle</a>
+    </nav>
+
+    <section id="modo-rapido" class="no-print">
+      <h2>⚡ Como deseja ver o guia?</h2>
+      <p class="lead">Escolha a forma mais confortável para você.</p>
+
+      <div class="mode-grid">
+        <button class="mode-card" onclick="showQuickMode()">
+          <span class="mode-icon">⚡</span>
+          <strong>Resumo rápido</strong>
+          <small>Veja apenas os pontos mais importantes.</small>
+        </button>
+
+        <button class="mode-card" onclick="showFullMode()">
+          <span class="mode-icon">📘</span>
+          <strong>Guia completo</strong>
+          <small>Veja explicações detalhadas e ferramentas interativas.</small>
+        </button>
+      </div>
+
+      <div id="quickSummary" class="quick-summary" style="display:none;">
+        <div class="summary-title">
+          ✅ O mais importante sobre pressão alta
+        </div>
+
+        <div class="quick-cards">
+          <div class="quick-card">
+            <div class="quick-big">🩺 O que é?</div>
+            <p>Pressão alta é quando o sangue faz muita força dentro dos vasos.</p>
+          </div>
+
+          <div class="quick-card">
+            <div class="quick-big">🧂 Menos sal</div>
+            <p>Evite excesso de sal, embutidos e alimentos industrializados.</p>
+          </div>
+
+          <div class="quick-card">
+            <div class="quick-big">🚶 Caminhe</div>
+            <p>Atividade física ajuda no controle da pressão e do coração.</p>
+          </div>
+
+          <div class="quick-card">
+            <div class="quick-big">💊 Remédios</div>
+            <p>Não pare os remédios sem orientação da equipe de saúde.</p>
+          </div>
+
+          <div class="quick-card alert-mini">
+            <div class="quick-big">🚨 Procure ajuda</div>
+            <p>Dor no peito, falta de ar, fraqueza, desmaio ou visão embaçada precisam de avaliação rápida.</p>
+          </div>
+
+          <div class="quick-card green-mini">
+            <div class="quick-big">🏥 UBS</div>
+            <p>Meça sua pressão regularmente e acompanhe na unidade de saúde.</p>
+          </div>
+        </div>
+
+        <div class="final-message">
+          ❤️ Mesmo sem sintomas, acompanhe sua pressão.
+        </div>
+
+        <div style="margin-top:16px;text-align:center">
+          <button onclick="showFullMode()">📘 Ver guia completo</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="inicio">
+      <h2>Antes de tudo</h2>
+      <p class="lead">Este guia ajuda a entender a pressão alta, mas não substitui consulta com médico, enfermeiro ou equipe da UBS.</p>
+      <div class="note">A hipertensão geralmente não causa sintomas. Por isso, medir a pressão e acompanhar na UBS é essencial.</div>
+    </section>
+
+    <section id="o-que-e">
+      <h2>🩺 O que é pressão alta?</h2>
+      <p><strong>Hipertensão arterial</strong> é uma doença crônica em que a pressão do sangue fica elevada de forma sustentada.</p>
+      <p>Com o tempo, pode prejudicar principalmente:</p>
+      <div class="grid">
+        <div class="card"><span class="icon">❤️</span><div class="big">Coração</div>Risco de infarto, insuficiência cardíaca e arritmias.</div>
+        <div class="card"><span class="icon">🧠</span><div class="big">Cérebro</div>Risco de AVC e problemas de memória.</div>
+        <div class="card"><span class="icon">🫘</span><div class="big">Rins</div>Risco de doença renal crônica.</div>
+      </div>
+      <div class="warn">Sentir-se bem não garante que a pressão esteja normal. A hipertensão pode ser silenciosa.</div>
+    </section>
+
+    <section id="valores">
+      <h2>📊 Como entender os valores?</h2>
+      <p>A pressão aparece com dois números. Exemplo: <strong>120 x 80</strong>, conhecido como <strong>12 por 8</strong>.</p>
+      <div class="table-scroll"><table>
+        <thead>
+          <tr><th>Medida em consultório</th><th>Classificação atual</th><th>Mensagem simples</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Menor que 120 x 80</strong></td><td>Pressão ótima</td><td>Manter hábitos saudáveis.</td></tr>
+          <tr><td><strong>120–129 e/ou 80–84</strong></td><td>Pressão normal</td><td>Continuar acompanhando.</td></tr>
+          <tr><td><strong>130–139 e/ou 85–89</strong></td><td>Pressão normal alta</td><td>Atenção: reforçar cuidados e avaliar risco cardiovascular.</td></tr>
+          <tr><td><strong>140–159 e/ou 90–99</strong></td><td>Hipertensão grau 1</td><td>Precisa avaliação e confirmação com a equipe de saúde.</td></tr>
+          <tr><td><strong>160–179 e/ou 100–109</strong></td><td>Hipertensão grau 2</td><td>Procurar consulta médica com prioridade.</td></tr>
+          <tr><td><strong>180 x 110 ou mais</strong></td><td>Hipertensão grau 3</td><td>Valor muito alto. Se houver sintomas, procurar urgência.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note">O diagnóstico é feito com medidas corretas e avaliação profissional. Uma única medida nem sempre confirma hipertensão.</div>
+    </section>
+
+    <section id="rastreamento">
+      <h2>🔎 Quem deve medir a pressão?</h2>
+      <div class="grid2">
+        <div class="card"><span class="icon">👨‍🦱</span><div class="big">Adultos</div>Pessoas com 18 anos ou mais devem medir a pressão regularmente, mesmo sem sintomas.</div>
+        <div class="card"><span class="icon">👵🏽</span><div class="big">Idosos</div>Acompanhamento é ainda mais importante, pois a hipertensão aumenta com a idade.</div>
+      </div>
+      <div class="note">Na Atenção Primária, a UBS ajuda no rastreamento, acompanhamento, prevenção e controle da hipertensão.</div>
+    </section>
+
+    <section id="cuidados">
+      <h2>🍎 O que ajuda a controlar?</h2>
+      <p>Toque nos cuidados que você já faz ou quer começar:</p>
+      <div class="options">
+        <button class="option" onclick="toggleDone(this)">Reduzir sal, sódio e ultraprocessados</button>
+        <button class="option" onclick="toggleDone(this)">Comer mais frutas, verduras, legumes e feijão</button>
+        <button class="option" onclick="toggleDone(this)">Controlar o peso corporal</button>
+        <button class="option" onclick="toggleDone(this)">Fazer atividade física regular com segurança</button>
+        <button class="option" onclick="toggleDone(this)">Evitar cigarro</button>
+        <button class="option" onclick="toggleDone(this)">Reduzir álcool, cuidar do sono e do estresse</button>
+      </div>
+      <details>
+        <summary>🧂 Onde tem muito sal?</summary>
+        <div class="inside">
+          <p>Caldo pronto, temperos prontos, embutidos, macarrão instantâneo, salgadinhos, conservas e alimentos muito industrializados.</p>
+        </div>
+      </details>
+      <details>
+        <summary>🌿 Como temperar melhor?</summary>
+        <div class="inside">
+          <p>Use alho, cebola, cheiro-verde, limão, coentro, orégano, manjericão e outros temperos naturais.</p>
+        </div>
+      </details>
+    </section>
+
+    <section id="alerta">
+      <h2>🚨 Quando procurar ajuda rápido?</h2>
+      <p>Procure atendimento se a pressão estiver muito alta e aparecer:</p>
+      <div class="grid2">
+        <div class="card">💔 Dor ou aperto no peito</div>
+        <div class="card">😮‍💨 Falta de ar intensa</div>
+        <div class="card">🧠 Confusão, desmaio ou sonolência forte</div>
+        <div class="card">🦵 Fraqueza em um lado do corpo</div>
+        <div class="card">👁️ Visão embaçada ou perda de visão</div>
+        <div class="card">🤕 Dor de cabeça muito forte e diferente</div>
+      </div>
+      <div class="warn">Esses sinais podem indicar emergência, como AVC, infarto ou lesão em órgãos. Não espere passar sozinho.</div>
+    </section>
+
+    <section id="medir">
+      <h2>📏 Para medir a pressão direito</h2>
+      <p>Antes de medir, confira estes passos:</p>
+      <div class="options">
+        <button class="option" onclick="toggleDone(this)">Descansar por 5 minutos</button>
+        <button class="option" onclick="toggleDone(this)">Sentar com as costas apoiadas</button>
+        <button class="option" onclick="toggleDone(this)">Pés no chão e pernas descruzadas</button>
+        <button class="option" onclick="toggleDone(this)">Braço apoiado na altura do coração</button>
+        <button class="option" onclick="toggleDone(this)">Não conversar durante a medida</button>
+        <button class="option" onclick="toggleDone(this)">Evitar café, cigarro ou exercício logo antes</button>
+      </div>
+      <div class="good">Anote data, horário e valor da pressão. Leve esses registros para a consulta.</div>
+    </section>
+
+    <section id="remedio">
+      <h2>💊 Sobre os remédios</h2>
+      <p>Algumas pessoas precisam de remédios além das mudanças de hábitos. A decisão depende do grau da pressão e do risco cardiovascular.</p>
+      <div class="grid2">
+        <div class="card"><span class="icon">⏰</span><div class="big">Use no horário</div>Alarme e caixa organizadora ajudam.</div>
+        <div class="card"><span class="icon">📦</span><div class="big">Não deixe acabar</div>Procure a UBS antes do remédio terminar.</div>
+        <div class="card"><span class="icon">⚠️</span><div class="big">Teve efeito ruim?</div>Não pare sozinho. Avise a equipe.</div>
+        <div class="card"><span class="icon">🌿</span><div class="big">Chá não substitui</div>Plantas e chás não substituem o tratamento indicado.</div>
+      </div>
+      <div class="warn">Se a pressão melhorou usando remédio, isso geralmente quer dizer que o tratamento está funcionando.</div>
+    </section>
+
+    <section id="idoso">
+      <h2>👵🏽 Atenção especial para idosos</h2>
+      <p>Em pessoas idosas, o cuidado precisa observar tonturas, risco de quedas, muitos remédios juntos, memória, alimentação e apoio familiar.</p>
+      <div class="grid2">
+        <div class="card">Levante devagar da cama ou cadeira.</div>
+        <div class="card">Leve todos os remédios para a consulta.</div>
+        <div class="card">Avise se tiver tontura, queda ou fraqueza.</div>
+        <div class="card">Peça ajuda para organizar horários dos remédios.</div>
+      </div>
+    </section>
+
+    <section id="ubs">
+      <h2>🏥 Quando ir à UBS?</h2>
+      <div class="options">
+        <button class="option" onclick="toggleDone(this)">Para acompanhar a pressão</button>
+        <button class="option" onclick="toggleDone(this)">Para avaliar risco cardiovascular</button>
+        <button class="option" onclick="toggleDone(this)">Para renovar receita antes de acabar</button>
+        <button class="option" onclick="toggleDone(this)">Se a pressão aparece alta com frequência</button>
+        <button class="option" onclick="toggleDone(this)">Se tiver dúvidas ou efeitos de remédios</button>
+        <button class="option" onclick="toggleDone(this)">Para orientação de alimentação e atividade física</button>
+      </div>
+    </section>
+
+    <section id="mitos">
+      <h2>❌ Mitos e verdades</h2>
+      <details>
+        <summary>“Se eu não sinto nada, está tudo bem.”</summary>
+        <div class="inside"><p><strong>Mito.</strong> A pressão alta pode ser silenciosa.</p></div>
+      </details>
+      <details>
+        <summary>“Posso parar o remédio quando a pressão melhora.”</summary>
+        <div class="inside"><p><strong>Mito perigoso.</strong> Só pare ou mude remédio com orientação profissional.</p></div>
+      </details>
+      <details>
+        <summary>“Reduzir sal ajuda.”</summary>
+        <div class="inside"><p><strong>Verdade.</strong> Menos sal e menos ultraprocessados ajudam no controle.</p></div>
+      </details>
+      <details>
+        <summary>“Caminhar pode ajudar.”</summary>
+        <div class="inside"><p><strong>Verdade.</strong> Atividade física regular, com segurança, ajuda a controlar a pressão.</p></div>
+      </details>
+    </section>
+
+    <section id="quiz" class="no-print">
+      <h2>🎯 Quiz rápido</h2>
+      <div class="card">
+        <p><strong>1. A pressão alta sempre dá sintomas?</strong></p>
+        <button onclick="quiz('r1',false)">Sim</button>
+        <button onclick="quiz('r1',true)">Não</button>
+        <div id="r1" class="result"></div>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <p><strong>2. Posso parar o remédio por conta própria?</strong></p>
+        <button onclick="quiz('r2',false)">Sim</button>
+        <button onclick="quiz('r2',true)">Não</button>
+        <div id="r2" class="result"></div>
+      </div>
+    </section>
+
+    <section id="controle">
+      <h2>📝 Meu controle da pressão</h2>
+      <p class="lead">Registre a pressão de forma simples. O guia mostra a classificação, a média e o histórico por período.</p>
+
+      <div class="note">
+        <strong>Como usar:</strong> escolha os números da pressão, toque em salvar e acompanhe os resultados. Leve esse histórico para a UBS.
+      </div>
+
+      <div class="control-panel">
+        <div class="control-card">
+          <h3>1. Escolha a pressão maior</h3>
+          <p class="mini">É o primeiro número. Exemplo: 130 x 80.</p>
+          <div class="stepper">
+            <button type="button" class="round" onclick="adjustPressure('sys', -10)">−10</button>
+            <button type="button" class="round" onclick="adjustPressure('sys', -1)">−1</button>
+            <div class="number-box">
+              <span id="sysValue">130</span>
+              <small>maior</small>
+            </div>
+            <button type="button" class="round" onclick="adjustPressure('sys', 1)">+1</button>
+            <button type="button" class="round" onclick="adjustPressure('sys', 10)">+10</button>
+          </div>
+        </div>
+
+        <div class="control-card">
+          <h3>2. Escolha a pressão menor</h3>
+          <p class="mini">É o segundo número. Exemplo: 130 x 80.</p>
+          <div class="stepper">
+            <button type="button" class="round" onclick="adjustPressure('dia', -10)">−10</button>
+            <button type="button" class="round" onclick="adjustPressure('dia', -1)">−1</button>
+            <div class="number-box">
+              <span id="diaValue">80</span>
+              <small>menor</small>
+            </div>
+            <button type="button" class="round" onclick="adjustPressure('dia', 1)">+1</button>
+            <button type="button" class="round" onclick="adjustPressure('dia', 10)">+10</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="classificacaoAtual" class="classification-box">
+        130 x 80 — Pressão normal alta
+      </div>
+
+      <div class="preset-row">
+        <button type="button" class="secondary" onclick="setPreset(120,80)">12 x 8</button>
+        <button type="button" class="secondary" onclick="setPreset(130,85)">13 x 8,5</button>
+        <button type="button" class="secondary" onclick="setPreset(140,90)">14 x 9</button>
+        <button type="button" class="secondary" onclick="setPreset(160,100)">16 x 10</button>
+        <button type="button" class="secondary" onclick="setPreset(180,110)">18 x 11</button>
+      </div>
+
+      <div class="pressure-form better">
+        <label>Data da medida<input id="data" type="date"></label>
+        <label>Horário<input id="hora" type="time"></label>
+        <label>Momento
+          <select id="momento">
+            <option>Manhã</option>
+            <option>Tarde</option>
+            <option>Noite</option>
+            <option>Após remédio</option>
+            <option>Antes do remédio</option>
+            <option>Outro momento</option>
+          </select>
+        </label>
+      </div>
+
+      <p>
+        <button onclick="savePressure()">✅ Salvar medida</button>
+        <button class="secondary" onclick="fillNow()">Usar data e hora de agora</button>
+      </p>
+
+      <div class="summary-grid">
+        <div class="summary-card">
+          <span class="icon">📌</span>
+          <strong>Última medida</strong>
+          <div id="ultimaMedida">Nenhuma ainda</div>
+        </div>
+        <div class="summary-card">
+          <span class="icon">📊</span>
+          <strong>Média do período</strong>
+          <div id="mediaPeriodo">Sem dados</div>
+        </div>
+        <div class="summary-card">
+          <span class="icon">🧭</span>
+          <strong>Resultado mais comum</strong>
+          <div id="resultadoComum">Sem dados</div>
+        </div>
+      </div>
+
+      <div class="filter-box">
+        <h3>Ver histórico por período</h3>
+        <div class="preset-row">
+          <button type="button" onclick="setPeriod('7')">Últimos 7 dias</button>
+          <button type="button" onclick="setPeriod('30')">Últimos 30 dias</button>
+          <button type="button" onclick="setPeriod('all')">Tudo</button>
+          <button type="button" class="secondary" onclick="clearPressure()">Limpar histórico</button>
+        </div>
+      </div>
+
+      <div id="listaPA" class="history-list">Nenhuma medida salva ainda.</div>
+
+      <div class="warn">
+        Este controle é educativo. Pressões repetidamente altas, sintomas ou dúvidas devem ser avaliados pela equipe da UBS.
+      </div>
+    </section>
+
+    <section id="resumo">
+      <h2>✅ Mensagem final</h2>
+      <div class="good">
+        <p><strong>Pressão alta pode ser silenciosa.</strong></p>
+        <p>Meça, acompanhe, reduza sal e ultraprocessados, movimente-se com segurança e use os remédios como orientado.</p>
+        <p>Em caso de sintomas graves, procure atendimento rápido.</p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <h2>Fontes atualizadas</h2>
+      <p>Conteúdo educativo adaptado da Diretriz Brasileira de Hipertensão Arterial – 2025 e do Protocolo Clínico e Diretrizes Terapêuticas da Hipertensão Arterial Sistêmica do Ministério da Saúde/SUS – 2025.</p>
+      <p class="mini" style="color:#e5e7eb">Este guia é educativo e não substitui consulta com médico, enfermeiro ou equipe da UBS.</p>
+    </footer>
+  </main>
+
+  <script>
+    let baseFont = parseInt(localStorage.getItem('fontSizeHAS2025') || '20', 10);
+    let paused = false;
+    let speakingText = '';
+
+    document.documentElement.style.setProperty('--font', baseFont + 'px');
+    if(localStorage.getItem('contrastHAS2025') === 'yes'){
+      document.body.classList.add('high-contrast');
+    }
+
+    function changeFont(delta){
+      baseFont = Math.max(17, Math.min(28, baseFont + delta));
+      document.documentElement.style.setProperty('--font', baseFont + 'px');
+      localStorage.setItem('fontSizeHAS2025', baseFont);
+    }
+
+    function toggleContrast(){
+      document.body.classList.toggle('high-contrast');
+      localStorage.setItem('contrastHAS2025', document.body.classList.contains('high-contrast') ? 'yes' : 'no');
+    }
+
+    function toggleDone(btn){
+      btn.classList.toggle('done');
+    }
+
+    function cleanText(t){
+      return t.replace(/[❤️🧠🫘🩺📊🍎🚨📏💊❌📝✅🧂🌿💔😮‍💨🦵👁️🤕⏰📦⚠️👵🏽🏥🎯⬜＋−🔎👨‍🦱]/g,' ')
+              .replace(/\s+/g,' ')
+              .trim();
+    }
+
+    function getVoice(){
+      const voices = window.speechSynthesis.getVoices();
+      const pt = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith('pt'));
+      const br = pt.find(v => v.lang.toLowerCase() === 'pt-br');
+      return br || pt[0] || voices[0] || null;
+    }
+
+    function startVoice(){
+      if(!('speechSynthesis' in window)){
+        alert('Este navegador não permite leitura em voz alta.');
+        return;
+      }
+      stopVoice();
+      const parts = Array.from(document.querySelectorAll('h1,h2,p,summary,.card,.note,.warn,.good,td,th'))
+        .map(e => cleanText(e.innerText))
+        .filter(Boolean);
+      speakingText = parts.join('. ');
+      const utter = new SpeechSynthesisUtterance(speakingText);
+      utter.lang = 'pt-BR';
+      utter.rate = 0.92;
+      utter.pitch = 1;
+      const voice = getVoice();
+      if(voice) utter.voice = voice;
+      utter.onend = () => {
+        paused = false;
+        document.getElementById('pauseBtn').innerText = '⏸️ Pausar';
+      };
+      window.speechSynthesis.speak(utter);
+      paused = false;
+      document.getElementById('pauseBtn').innerText = '⏸️ Pausar';
+    }
+
+    function pauseResumeVoice(){
+      if(!('speechSynthesis' in window)) return;
+      if(window.speechSynthesis.speaking && !paused){
+        window.speechSynthesis.pause();
+        paused = true;
+        document.getElementById('pauseBtn').innerText = '▶️ Continuar';
+      }else if(paused){
+        window.speechSynthesis.resume();
+        paused = false;
+        document.getElementById('pauseBtn').innerText = '⏸️ Pausar';
+      }
+    }
+
+    function stopVoice(){
+      if('speechSynthesis' in window){
+        window.speechSynthesis.cancel();
+      }
+      paused = false;
+      const btn = document.getElementById('pauseBtn');
+      if(btn) btn.innerText = '⏸️ Pausar';
+    }
+
+    if('speechSynthesis' in window){
+      window.speechSynthesis.onvoiceschanged = getVoice;
+    }
+
+    function quiz(id, correct){
+      const el = document.getElementById(id);
+      el.style.display = 'block';
+      el.innerHTML = correct ? '✅ Certo! Muito bem.' : '⚠️ Revise essa parte do guia.';
+    }
+
+    let currentSys = 130;
+    let currentDia = 80;
+    let currentPeriod = '7';
+
+    function classifyPressure(sys, dia){
+      if(sys >= 180 || dia >= 110){
+        return {label:'Hipertensão grau 3', cls:'badge-high', simple:'muito alta'};
+      }
+      if(sys >= 160 || dia >= 100){
+        return {label:'Hipertensão grau 2', cls:'badge-high', simple:'alta'};
+      }
+      if(sys >= 140 || dia >= 90){
+        return {label:'Hipertensão grau 1', cls:'badge-high', simple:'alta'};
+      }
+      if(sys >= 130 || dia >= 85){
+        return {label:'Pressão normal alta', cls:'badge-att', simple:'atenção'};
+      }
+      if(sys >= 120 || dia >= 80){
+        return {label:'Pressão normal', cls:'badge-ok', simple:'normal'};
+      }
+      return {label:'Pressão ótima', cls:'badge-ok', simple:'ótima'};
+    }
+
+
+    function showQuickMode(){
+      document.getElementById('quickSummary').style.display = 'block';
+      document.getElementById('quickSummary').scrollIntoView({behavior:'smooth'});
+    }
+
+    function showFullMode(){
+      document.getElementById('inicio').scrollIntoView({behavior:'smooth'});
+    }
+
+    function updatePressureView(){
+      document.getElementById('sysValue').innerText = currentSys;
+      document.getElementById('diaValue').innerText = currentDia;
+      const c = classifyPressure(currentSys, currentDia);
+      document.getElementById('classificacaoAtual').innerHTML = `${currentSys} x ${currentDia} — ${c.label}`;
+    }
+
+    function adjustPressure(type, delta){
+      if(type === 'sys'){
+        currentSys = Math.max(80, Math.min(240, currentSys + delta));
+      }else{
+        currentDia = Math.max(40, Math.min(140, currentDia + delta));
+      }
+      updatePressureView();
+    }
+
+    function setPreset(sys, dia){
+      currentSys = sys;
+      currentDia = dia;
+      updatePressureView();
+    }
+
+    function fillNow(){
+      const now = new Date();
+      document.getElementById('data').value = now.toISOString().slice(0,10);
+      document.getElementById('hora').value = now.toTimeString().slice(0,5);
+    }
+
+    function savePressure(){
+      const data = document.getElementById('data').value;
+      const hora = document.getElementById('hora').value;
+      const momento = document.getElementById('momento').value;
+      if(!data || !hora){
+        alert('Preencha data e horário.');
+        return;
+      }
+      const registros = JSON.parse(localStorage.getItem('registrosHAS2025') || '[]');
+      const c = classifyPressure(currentSys, currentDia);
+      registros.unshift({
+        id: Date.now(),
+        data,
+        hora,
+        momento,
+        sys: currentSys,
+        dia: currentDia,
+        classe: c.label
+      });
+      localStorage.setItem('registrosHAS2025', JSON.stringify(registros.slice(0,60)));
+      renderPressure();
+    }
+
+    function clearPressure(){
+      if(confirm('Apagar os registros salvos neste aparelho?')){
+        localStorage.removeItem('registrosHAS2025');
+        renderPressure();
+      }
+    }
+
+    function deleteMeasure(id){
+      const registros = JSON.parse(localStorage.getItem('registrosHAS2025') || '[]')
+        .filter(r => String(r.id) !== String(id));
+      localStorage.setItem('registrosHAS2025', JSON.stringify(registros));
+      renderPressure();
+    }
+
+    function setPeriod(period){
+      currentPeriod = period;
+      renderPressure();
+    }
+
+    function escapeHtml(text){
+      return String(text).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+    }
+
+    function formatDateBR(dateText){
+      const [y,m,d] = dateText.split('-');
+      return `${d}/${m}/${y}`;
+    }
+
+    function filteredRecords(){
+      const registros = JSON.parse(localStorage.getItem('registrosHAS2025') || '[]');
+      if(currentPeriod === 'all') return registros;
+      const days = parseInt(currentPeriod, 10);
+      const limit = new Date();
+      limit.setHours(0,0,0,0);
+      limit.setDate(limit.getDate() - (days - 1));
+      return registros.filter(r => {
+        const dt = new Date(r.data + 'T00:00:00');
+        return dt >= limit;
+      });
+    }
+
+    function renderPressure(){
+      const el = document.getElementById('listaPA');
+      const registros = filteredRecords();
+
+      const all = JSON.parse(localStorage.getItem('registrosHAS2025') || '[]');
+      if(!all.length){
+        el.innerHTML = 'Nenhuma medida salva ainda.';
+        document.getElementById('ultimaMedida').innerHTML = 'Nenhuma ainda';
+        document.getElementById('mediaPeriodo').innerHTML = 'Sem dados';
+        document.getElementById('resultadoComum').innerHTML = 'Sem dados';
+        return;
+      }
+
+      const last = all[0];
+      const lastClass = classifyPressure(last.sys, last.dia);
+      document.getElementById('ultimaMedida').innerHTML =
+        `<strong>${last.sys} x ${last.dia}</strong><br><span class="badge-class ${lastClass.cls}">${lastClass.label}</span><br>${formatDateBR(last.data)} às ${last.hora}`;
+
+      if(!registros.length){
+        el.innerHTML = '<div class="note">Não há medidas neste período selecionado.</div>';
+        document.getElementById('mediaPeriodo').innerHTML = 'Sem dados no período';
+        document.getElementById('resultadoComum').innerHTML = 'Sem dados no período';
+        return;
+      }
+
+      const avgSys = Math.round(registros.reduce((s,r)=>s+r.sys,0)/registros.length);
+      const avgDia = Math.round(registros.reduce((s,r)=>s+r.dia,0)/registros.length);
+      const avgClass = classifyPressure(avgSys, avgDia);
+
+      document.getElementById('mediaPeriodo').innerHTML =
+        `<strong>${avgSys} x ${avgDia}</strong><br><span class="badge-class ${avgClass.cls}">${avgClass.label}</span><br>${registros.length} medida(s)`;
+
+      const counts = {};
+      registros.forEach(r => counts[r.classe] = (counts[r.classe] || 0) + 1);
+      const common = Object.entries(counts).sort((a,b)=>b[1]-a[1])[0];
+      document.getElementById('resultadoComum').innerHTML = common ? `<strong>${common[0]}</strong><br>${common[1]} vez(es)` : 'Sem dados';
+
+      const grouped = {};
+      registros.forEach(r => {
+        if(!grouped[r.data]) grouped[r.data] = [];
+        grouped[r.data].push(r);
+      });
+
+      el.innerHTML = Object.keys(grouped).sort().reverse().map(date => {
+        const items = grouped[date].map(r => {
+          const c = classifyPressure(r.sys, r.dia);
+          return `<div class="history-measure">
+            <div>
+              <div class="measure-value">${r.sys} x ${r.dia}</div>
+              <span class="badge-class ${c.cls}">${c.label}</span>
+              <div class="mini">${escapeHtml(r.hora)} — ${escapeHtml(r.momento || 'Sem momento informado')}</div>
+            </div>
+            <button class="delete-mini" onclick="deleteMeasure('${r.id}')">Apagar</button>
+          </div>`;
+        }).join('');
+        return `<div class="history-day">
+          <div class="history-day-title">${formatDateBR(date)}</div>
+          ${items}
+        </div>`;
+      }).join('');
+    }
+
+    fillNow();
+    updatePressureView();
+    renderPressure();
+  </script>
+</body>
+</html>
